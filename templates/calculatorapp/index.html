@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalculatorApp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+        .navbar-brand, .nav-link {
+            transition: color 0.3s;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #198754 !important;
+        }
+        .footer-text {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Django Calculator</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid" style="margin-bottom: 20rem;">
+    <div class="row">
+        <div class="col-md-6 mx-auto mt-4">
+            <img class="img-fluid mb-3 d-block mx-auto" src="{% static 'calc.jpg' %}" alt="App Logo" style="max-width: 150px;">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Simple Calculator</h5>
+                    
+                    <!-- Alert message inside card -->
+                    {% if error %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Error Occured</strong> : put the correct input 
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% elif ans %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <strong>Result:</strong> {{ ans }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+
+                    <!-- Calculator form -->
+                    <form method="GET" action="{% url 'submitquery' %}">
+                        <div class="form-group mb-3">
+                            <label for="query">Enter Calculation:</label>
+                            <input type="search" class="form-control" name="query" id="query" placeholder="e.g., 5 + 3">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" class="btn btn-success mx-2" value="Calculate">
+                            <input type="reset" class="btn btn-danger mx-2" value="Clear">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <footer class="fixed-bottom text-center py-3" style="background-color: black;">
+            <p class="footer-text mb-0">© Django Calculator</p>
+        </footer>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
